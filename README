@@ -1,0 +1,42 @@
+
+
+
+
+Organization of files.
+	preferably no Makefile. Compile operations are controlled by compile.sh
+
+headers are in the srcs folder.
+main.c is in the srcs folder.
+project header holds function prototypes.
+struct header holds structs/macros
+global header holds global variables
+error_messages header holds error message global variables
+
+INITIALIZER FUNCTION 	-> initialize_${name}
+	main.c handles input parameters and status printing from primary coordinator function.
+	prints out status codes and corresponding messages
+	returns 0
+
+COORDINATOR FUNCTION 	-> coordinate_${name}
+	project_name.c handles REQUIRE statements and functions calls and returns status codes
+	validates the result of every helper function inside the component and returns which function fails.
+	returns int
+
+BUILDER FUNCTION		-> build_${name}
+	sets initial values or modifies a variable (initializer/)
+	returns the variable or sometimes a bool or sometimes void? unsure 
+
+PROCEDURE FUNCTION		->process_${name}
+	runs a procedure on variables, (placing pieces in fillit board)
+	returns bool on success or failure
+
+MODULES { // input_validation is the best example
+	COMPONENT {
+		INITIALIZER FUNCTION --> validate_input()
+		COORDINATOR FUNCTION --> run_validation()
+		HELPER {
+			BUILDER FUNCTIONS --> trim_piece()
+			PROCEDURE FUNCTIONS --> is_valid_piece()
+		}
+	}
+}
